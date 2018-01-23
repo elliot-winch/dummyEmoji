@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,7 +30,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Signed in")
                 navigationController = UINavigationController(rootViewController: uiStoryboard.instantiateViewController(withIdentifier: "100"))
                 self.window?.rootViewController = navigationController
+                
+                //Database management
+                print(user!.uid)
+                
+                let userDataPath = Database.database().reference().child("users")
+                
+                userDataPath.observeSingleEvent(of: .value, with: { (snapshot) in
+                    
+                    if snapshot.hasChild(user!.uid) == false{
+                        userDataPath.setValue(user!.uid)
+                        
+                        let specificUserPath = userDataPath.child(user!.uid)
+                        
+                        specificUserPath.setValue("Favourite Color")
+                        specificUserPath.setValue("Friends")
+                        
+                        let userData = ["username" : user!.displayName,
+                                        "email": user!.email]
+                        
+                        specificUserPath.updateChildValues(userData)
 
+                    }
+                    
+                })
+                
+                
             } else {
                 print("Signed out")
 

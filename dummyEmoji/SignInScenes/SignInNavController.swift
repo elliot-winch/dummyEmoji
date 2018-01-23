@@ -28,6 +28,8 @@ class SignInNavController: UINavigationController {
                 print("Sign In Error: " + error!.localizedDescription)
             }
         }
+        
+        
     }
 
 }
