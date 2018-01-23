@@ -8,15 +8,44 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class AccountViewController: UIViewController {
 
     @IBOutlet weak var usernameText: UITextField!
+    @IBOutlet weak var favColorImage: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usernameText.text = Auth.auth().currentUser?.displayName
+        if(Auth.auth().currentUser != nil) {
+            let currentUser = Auth.auth().currentUser!
+            
+            usernameText.text = currentUser.displayName
+            
+            changeFavColorImageFromDatabase()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        changeFavColorImageFromDatabase()
+    }
+    
+    func changeFavColorImageFromDatabase(){
+        let currentUser = Auth.auth().currentUser!
+
+        let userRef = Database.database().reference().child("users/\(currentUser.uid)/favColor")
+        
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let redVal = snapshot.childSnapshot(forPath: "r").value as! CGFloat / 256.0
+            let greenVal = snapshot.childSnapshot(forPath: "g").value as! CGFloat / 256.0
+            let blueVal = snapshot.childSnapshot(forPath: "b").value as! CGFloat / 256.0
+            
+             self.favColorImage.backgroundColor = UIColor(red: redVal, green: greenVal, blue: blueVal, alpha: CGFloat(1))
+ 
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +55,7 @@ class AccountViewController: UIViewController {
     
     
     @IBAction func signOut(_ sender: Any) {
+        //move to navigation controller
         print("Signing out")
         do {
             try Auth.auth().signOut()

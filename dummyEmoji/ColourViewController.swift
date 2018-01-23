@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseDatabase
 
 class ColourViewController: UIViewController {
@@ -32,14 +33,14 @@ class ColourViewController: UIViewController {
             
             var newVal = CGFloat(newValInt)
             
-            if newVal <= 255 && newVal >= 0 {
-                newVal = newVal/CGFloat(255)
+            if newVal <= 256 && newVal >= 0 {
+                newVal = newVal/CGFloat(256)
             } else if newVal < 0 {
                 newVal = 0
                 newValInt = 0
             } else {
                 newVal = 1
-                newValInt = 255
+                newValInt = 256
             }
                 
             if(sender.tag == 101){
@@ -58,18 +59,31 @@ class ColourViewController: UIViewController {
             sender.text = String(newValInt)
             
             favouriteColourDisplay.backgroundColor = UIColor(red: redVal, green: greenVal, blue: blueVal, alpha: 1)
+            
         } else {
             if(sender.tag == 101){
-                sender.text = String(describing: Int(blueVal * 255))
+                sender.text = String(describing: Int(blueVal * 256))
             } else if (sender.tag == 102){
-                sender.text = String(describing: Int(redVal * 255))
+                sender.text = String(describing: Int(redVal * 256))
 
             } else if (sender.tag == 103){
-                sender.text = String(describing: Int(greenVal * 255))
+                sender.text = String(describing: Int(greenVal * 256))
 
             } else {
                 print("Incorrect tagging")
             }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated : Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParentViewController {
+            
+            let userUID = Auth.auth().currentUser!.uid
+            let userFavColorData = Database.database().reference().child("users/\(userUID)/favColor")
+        
+            userFavColorData.updateChildValues(["r": Int(redVal * 256), "g": Int(greenVal * 256), "b": Int(blueVal * 256)])
         }
     }
     

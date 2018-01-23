@@ -219,6 +219,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="favColorImage" destination="iQm-kf-Fa1" id="zJp-V0-2u3"/>
                         <outlet property="usernameText" destination="NjX-hE-c4t" id="hJh-J3-HdU"/>
                     </connections>
                 </viewController>

@@ -31,25 +31,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 navigationController = UINavigationController(rootViewController: uiStoryboard.instantiateViewController(withIdentifier: "100"))
                 self.window?.rootViewController = navigationController
                 
-                //Database management
+                //Database management - User is added into the database if they are not there already
                 print(user!.uid)
                 
                 let userDataPath = Database.database().reference().child("users")
                 
                 userDataPath.observeSingleEvent(of: .value, with: { (snapshot) in
                     
-                    if snapshot.hasChild(user!.uid) == false{
+                   if snapshot.hasChild(user!.uid) == false{
                         userDataPath.setValue(user!.uid)
                         
                         let specificUserPath = userDataPath.child(user!.uid)
-                        
-                        specificUserPath.setValue("Favourite Color")
-                        specificUserPath.setValue("Friends")
                         
                         let userData = ["username" : user!.displayName,
                                         "email": user!.email]
                         
                         specificUserPath.updateChildValues(userData)
+                    
+                        let initChildren = ["favColor" : "0,0,0",
+                                        "friends" : 0] as [String : Any]
+                    
+                        specificUserPath.updateChildValues(initChildren)
+                        
+                        specificUserPath.child("favColor").updateChildValues(["r" : 0, "g": 0, "b": 0])
 
                     }
                     
