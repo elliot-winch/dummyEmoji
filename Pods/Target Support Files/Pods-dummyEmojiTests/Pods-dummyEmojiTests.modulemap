@@ -1,0 +1,6 @@
+framework module Pods_dummyEmojiTests {
+  umbrella header "Pods-dummyEmojiTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
