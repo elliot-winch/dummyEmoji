@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		17C955A62017D1BD0059718F /* SignInNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C955A52017D1BD0059718F /* SignInNavController.swift */; };
+		17C955A92017F4470059718F /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C955A82017F4470059718F /* FriendSearchViewController.swift */; };
 		38AB35AA6F5A13A98E776A0E /* Pods_dummyEmojiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557917ACF268DAC0891B5CD4 /* Pods_dummyEmojiTests.framework */; };
 		41BD07EE87D96CDA54A54640 /* Pods_dummyEmojiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B355BB3D22DD9856CAA525 /* Pods_dummyEmojiUITests.framework */; };
 		67B91221D41B61862A05FA3E /* Pods_dummyEmoji.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E84135265726934666F03B9 /* Pods_dummyEmoji.framework */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		17C955A52017D1BD0059718F /* SignInNavController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInNavController.swift; sourceTree = "<group>"; };
+		17C955A82017F4470059718F /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
 		1897243BD7A23BBC382F7C38 /* Pods-dummyEmoji.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dummyEmoji.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dummyEmoji/Pods-dummyEmoji.debug.xcconfig"; sourceTree = "<group>"; };
 		1AEBC0D2AA093C4950240B8A /* Pods-dummyEmojiUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dummyEmojiUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dummyEmojiUITests/Pods-dummyEmojiUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2E84135265726934666F03B9 /* Pods_dummyEmoji.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dummyEmoji.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,11 +168,12 @@
 			isa = PBXGroup;
 			children = (
 				B4CB63051FF6CB8E005F19AD /* AppDelegate.swift */,
+				B467C57920010ECB001945D2 /* AccountViewController.swift */,
 				B4CB63071FF6CB8E005F19AD /* ColourViewController.swift */,
 				17C955A72017D2F00059718F /* SignInScenes */,
 				B4CB63091FF6CB8E005F19AD /* Main.storyboard */,
+				17C955A82017F4470059718F /* FriendSearchViewController.swift */,
 				B43411BE200A7EF70034A74D /* Honeycomb */,
-				B467C57920010ECB001945D2 /* AccountViewController.swift */,
 				B4CB630C1FF6CB8E005F19AD /* Assets.xcassets */,
 				B4CB630E1FF6CB8E005F19AD /* LaunchScreen.storyboard */,
 				B4CB63111FF6CB8E005F19AD /* Info.plist */,
@@ -537,6 +540,7 @@
 				B4CB63061FF6CB8E005F19AD /* AppDelegate.swift in Sources */,
 				B467C57A20010ECB001945D2 /* AccountViewController.swift in Sources */,
 				17C955A62017D1BD0059718F /* SignInNavController.swift in Sources */,
+				17C955A92017F4470059718F /* FriendSearchViewController.swift in Sources */,
 				B4B1E1E31FF8412200F16E7B /* SignUpViewController.swift in Sources */,
 				B43411C2200A7F9D0034A74D /* Honeycomb.swift in Sources */,
 				B4B1E1DF1FF8370E00F16E7B /* SignInViewController.swift in Sources */,

@@ -22,7 +22,7 @@ class AccountViewController: UIViewController {
         if(Auth.auth().currentUser != nil) {
             let currentUser = Auth.auth().currentUser!
             
-            usernameText.text = currentUser.displayName
+            usernameText.text = currentUser.email
             
             changeFavColorImageFromDatabase()
         }
