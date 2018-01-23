@@ -32,15 +32,11 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func signIn(_ sender: Any) {
-        if(username != nil && password != nil){
-            
-            Auth.auth().signIn(withEmail: self.username!, password: self.password!) { (user, error) in
-                if(error != nil){
-                    print("Sign In Error: " + error!.localizedDescription)
-                }
+        if username != nil && password != nil{
+        
+            if let signInNavCont = self.navigationController as? SignInNavController{
+                signInNavCont.signIn(username: username!, password: password!)
             }
-        } else {
-            print("Username or password are nil")
         }
     }
 }

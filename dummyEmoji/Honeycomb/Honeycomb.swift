@@ -73,7 +73,6 @@ public class HoneycombScene : SKScene {
         hexNode.onDestroy = { (hex) -> () in
             
             for i in 0..<self.hexes.count {
-                print(i)
                 if(self.hexes[i] === hex){
                     self.hexes.remove(at: i)
                     break

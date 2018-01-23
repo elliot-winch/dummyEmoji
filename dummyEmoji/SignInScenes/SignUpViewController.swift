@@ -43,10 +43,8 @@ class SignUpViewController: UIViewController {
         if(username != nil && password != nil){
             Auth.auth().createUser(withEmail: username!, password: password!, completion: nil)
             
-            Auth.auth().signIn(withEmail: self.username!, password: self.password!) { (user, error) in
-                if(error != nil){
-                    print("Sign In Error: " + error!.localizedDescription)
-                }
+            if let signInNavCont = self.navigationController as? SignInNavController{
+                signInNavCont.signIn(username: username!, password: password!)
             }
         }
     }

@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 print("Signed out")
 
-                navigationController = UINavigationController(rootViewController: uiStoryboard.instantiateViewController(withIdentifier: "0"))
+                navigationController = SignInNavController(rootViewController: uiStoryboard.instantiateViewController(withIdentifier: "0"))
                 self.window?.rootViewController = navigationController
 
             }
