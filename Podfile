@@ -8,12 +8,15 @@ target 'dummyEmoji' do
   # Pods for dummyEmoji
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
+pod 'Firebase/Database'
 
   target 'dummyEmojiTests' do
     inherit! :search_paths
     # Pods for testing
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
+pod 'Firebase/Database'
+
   end
 
   target 'dummyEmojiUITests' do
@@ -21,6 +24,8 @@ pod 'Firebase/Auth'
     # Pods for testing
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
+pod 'Firebase/Database'
+
   end
 
 end

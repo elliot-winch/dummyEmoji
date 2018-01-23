@@ -14,11 +14,13 @@ class ColourViewController: UIViewController {
     private var redVal : CGFloat = 0
     private var blueVal : CGFloat = 0
     private var greenVal : CGFloat = 0
+    
 
     @IBOutlet weak var favouriteColourDisplay: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
     }
 
