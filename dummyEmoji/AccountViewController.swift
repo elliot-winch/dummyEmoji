@@ -39,11 +39,15 @@ class AccountViewController: UIViewController {
         
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            let redVal = snapshot.childSnapshot(forPath: "r").value as! CGFloat / 256.0
-            let greenVal = snapshot.childSnapshot(forPath: "g").value as! CGFloat / 256.0
-            let blueVal = snapshot.childSnapshot(forPath: "b").value as! CGFloat / 256.0
+            let redVal = snapshot.childSnapshot(forPath: "r").value as? CGFloat
+            let greenVal = snapshot.childSnapshot(forPath: "g").value as? CGFloat
+            let blueVal = snapshot.childSnapshot(forPath: "b").value as? CGFloat
             
-             self.favColorImage.backgroundColor = UIColor(red: redVal, green: greenVal, blue: blueVal, alpha: CGFloat(1))
+            if redVal != nil && blueVal != nil && greenVal != nil {
+            
+                self.favColorImage.backgroundColor = UIColor(red: redVal! / 256.0, green: greenVal! / 256.0, blue: blueVal! / 256.0, alpha: CGFloat(1))
+                
+            }
  
         })
     }

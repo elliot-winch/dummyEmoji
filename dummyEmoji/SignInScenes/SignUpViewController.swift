@@ -41,11 +41,18 @@ class SignUpViewController: UIViewController {
     @IBAction func createAccount(_ sender: UIButton) {
         
         if(username != nil && password != nil){
-            Auth.auth().createUser(withEmail: username!, password: password!, completion: nil)
-            
-            if let signInNavCont = self.navigationController as? SignInNavController{
-                signInNavCont.signIn(username: username!, password: password!)
-            }
+            Auth.auth().createUser(withEmail: username!, password: password!, completion: { (user, error) in
+                
+                if(error != nil){
+                    print(error.debugDescription)
+                } else {
+                
+                    if let signInNavCont = self.navigationController as? SignInNavController{
+                        signInNavCont.signIn(username: self.username!, password: self.password!)
+                    }
+                }
+            })
+
         }
     }
     

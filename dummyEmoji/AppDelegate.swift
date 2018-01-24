@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 userDataPath.observeSingleEvent(of: .value, with: { (snapshot) in
                     
                    if snapshot.hasChild(user!.uid) == false{
-                        userDataPath.setValue(user!.uid)
+                    userDataPath.updateChildValues([user!.uid : ""])
                         
                         let specificUserPath = userDataPath.child(user!.uid)
                         
