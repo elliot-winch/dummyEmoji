@@ -22,8 +22,9 @@ public class HoneycombView : SKView {
     }
 }
 
+
 public class HoneycombScene : SKScene {
-    
+  /*
     var hexes = [HexNode]()
     var maxVectorLength : CGFloat
     var distanceBetweenHexes : CGFloat
@@ -101,5 +102,121 @@ public class HoneycombScene : SKScene {
             prevTouchPosition = touchPosition
         }
     }
+ */
+    
+    var verticalLines : [HoneyCombLine] = [HoneyCombLine]()
+    var leftLines : [HoneyCombLine] = [HoneyCombLine]()
+    var rightLines : [HoneyCombLine] = [HoneyCombLine]()
 
+    let distBetween : CGFloat = 100.0 //temp
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        let screenWidth = self.scene!.size.width
+        let numVerticalLines = Int(screenWidth / distBetween) //will be average distance between lines
+        
+        for i in 0..<numVerticalLines {
+        
+            verticalLines.append(spawnLine(position: CGPoint(x: CGFloat(i) * distBetween - (screenWidth / 2), y: 0.0), angle: CGFloat.pi / 2.0))
+        }
+   
+        let leftAngle = CGFloat.pi / 6.0
+        let rightAngle = CGFloat.pi * 5.0 / 6.0
+        let heightToFill = self.scene!.size.height + screenWidth * tan(leftAngle)
+        let numHorizontalLines = Int(heightToFill / distBetween)
+        
+        for i in 0..<numHorizontalLines {
+            //Left
+            leftLines.append(spawnLine(position: CGPoint(x: 0.0, y: CGFloat(i) * distBetween - (heightToFill / 2)), angle: leftAngle))
+            
+            //Right
+            rightLines.append(spawnLine(position: CGPoint(x: 0.0, y: CGFloat(i) * distBetween - (heightToFill / 2)), angle: rightAngle))
+        }
+        
+        for v in verticalLines {
+            for l in leftLines {
+                spawnHex(position: v.getIntersection(line: l), parent: v)
+            }
+            
+            for r in rightLines {
+                spawnHex(position: v.getIntersection(line: r), parent: v)
+            }
+        }
+        
+        for l in leftLines {
+            for r in rightLines {
+                spawnHex(position: l.getIntersection(line: r), parent: l)
+
+            }
+        }
+
+    }
+    
+    func spawnHex(position: CGPoint, parent: SKNode) {
+        let hex = SKSpriteNode(texture: nil, color: UIColor.red, size: CGSize(width: 20.0, height: 20.0))
+        
+        hex.position = position
+        
+        hex.move(toParent: parent)
+    }
+    
+    func spawnLine(position: CGPoint, angle: CGFloat) -> HoneyCombLine{
+        let line = HoneyCombLine(point: position, angle: angle)
+        
+        line.move(toParent: self)
+        
+        return line
+    }
+    
+    var prevTouchPosition : CGPoint?
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if(touches.count > 0){
+            prevTouchPosition = touches.first?.location(in: self)
+        }
+    }
+    
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        if touches.count > 0{
+            
+            let touchPosition = (touches.first?.location(in: self))!
+            
+            let moveVector = CGPoint(x: touchPosition.x - prevTouchPosition!.x, y: touchPosition.y - prevTouchPosition!.y)
+            
+            
+            for line in verticalLines {
+
+                line.position = CGPoint(x: line.position.x + moveVector.x, y: line.position.y)
+                
+                for child in line.children {
+                    child.position = CGPoint(x: child.position.x, y: child.position.y + moveVector.y)
+                }
+            }
+            
+            for line in leftLines {
+                line.position = CGPoint(x: line.position.x, y: line.position.y + moveVector.y)
+                
+                for child in line.children {
+                    child.position = CGPoint(x: child.position.x + moveVector.x, y: child.position.y)
+                    
+                }
+            }
+            
+            for line in rightLines {
+                line.position = CGPoint(x: line.position.x, y: line.position.y + moveVector.y)
+                
+                for child in line.children {
+                    child.position = CGPoint(x: child.position.x + moveVector.x, y: child.position.y)
+                    
+                }
+            }
+            
+            prevTouchPosition = touchPosition
+        }
+    }
 }
+
+
+
+ 

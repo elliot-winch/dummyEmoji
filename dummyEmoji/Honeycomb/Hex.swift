@@ -8,6 +8,52 @@
 
 import SpriteKit
 
+
+public class HoneyCombLine : SKNode {
+    
+    //the startpoint is the position of the SKNode.
+    //Having an SKNode also allows for children of the line
+    let angle : CGFloat
+    
+    public init(point: CGPoint, angle: CGFloat) {
+        self.angle = angle
+
+        super.init()
+        
+        self.position = point
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        self.angle = 0
+
+        super.init(coder: aDecoder)
+        
+        print("Line init'ed without angle assigned")
+    }
+    
+    /*
+     Returns a point in the scene x distance from the start point
+    */
+    public func getPointAlongLine(distance: CGFloat) -> CGPoint{
+        return CGPoint(x: position.x + distance * cos(angle), y: position.y + distance * sin(angle))
+    }
+    
+    public func getIntersection(line: HoneyCombLine) -> CGPoint{
+        let dir = CGPoint(x: cos(self.angle), y: sin(self.angle))
+        let dirLine = CGPoint(x: cos(line.angle), y: sin(line.angle))
+        
+        let xIntersect = ((self.position.x * dirLine.y) - (self.position.y * dirLine.x) + (line.position.y * dirLine.x) - (line.position.x * dirLine.y)) / ((dir.y * dirLine.x) - (dir.x * dirLine.y))
+        
+        let yIntersect = (self.position.x - line.position.x + (xIntersect * dir.x)) / dirLine.x
+        
+        return CGPoint(x: xIntersect, y: yIntersect)
+        
+        //(AxUy - AyUx + ByUx - BxUy) / (VyUx - VxUy)
+        //S = (Ax - Bx + RVx) / Ux
+    }
+}
+
+/*
 public class HexNode : SKSpriteNode {
     
     //Initialisers
@@ -86,3 +132,4 @@ public class HexNode : SKSpriteNode {
     //Data
     
 }
+ */
